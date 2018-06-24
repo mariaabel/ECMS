@@ -14,11 +14,12 @@ require_once 'includes/dBconnect.php';
 		if(mysqli_num_rows($result) == 1){
 			
 			$_SESSION["username"]=$_POST['username'];
-			echo $_SESSION["user"];
+
+			echo $_SESSION["username"];
 		if($_SESSION['password'] = $_POST['password']){
 
 			$fetch_data = mysqli_fetch_array($result);
-			
+			$_SESSION['user_id']=$fetch_data['id'];
 
 			switch ($fetch_data['user_roles_id']) {
 				case "3":

@@ -88,6 +88,7 @@ color:green
 <div class="form_div">
 <div class="title">
 </div>
+
 <form action="rg.php" method="post">
 <!-- Method can be set as POST for hiding values in URL-->
 <h2>Form</h2>

@@ -1,11 +1,11 @@
 <?php
-/*session_start();
+session_start();
 require_once '../includes/dBconnect.php';
 if(!isset($_SESSION['id'])){
- header('location: ../index.php');
- exit;
-}*/
-?> 
+ //header('location: ../index.php');
+ //exit;
+//}
+?>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -13,7 +13,7 @@ if(!isset($_SESSION['id'])){
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>        
         <!-- META SECTION -->
-        <title>ECMS | Dashboard</title>            
+        <title>ECMS | Returns</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,7 +32,8 @@ if(!isset($_SESSION['id'])){
             <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
-                <?php require_once 'incs/sider.php';?>
+                 <?php require_once 'incs/sider.php';?>
+               
                 <!-- END X-NAVIGATION -->
             </div>
             <!-- END PAGE SIDEBAR -->
@@ -53,12 +54,12 @@ if(!isset($_SESSION['id'])){
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="index.html">Home</a></li>                    
-                    <li class="active">Dashboard</li>
+                    <li class="active">Returns</li>
                 </ul>
                 <!-- END BREADCRUMB -->                
                 
                 <div class="page-title">                    
-                    <h2><span class="fa fa-home"></span> Home</h2>
+                    <h2><span class="fa fa-arrow-circle-o-left"></span> Returns</h2>
                 </div>                   
                 
                 <!-- PAGE CONTENT WRAPPER -->
@@ -69,10 +70,44 @@ if(!isset($_SESSION['id'])){
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Dashboard</h3>
+                                    <h3 class="panel-title">List of All Returns</h3>
+                                    <div class="btn-group pull-right">
+                                        <p>
+                                        <a href="add_return.php"><button type="button" class="btn btn-info"><span class = "fa fa-plus-circle"></span> Add New Return</button></a> 
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="panel-body">
-                                    Panel body
+                                    <div class="table-responsive">
+                                        <table class="table datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Component</th>
+                                                    <th>Quantity Returned</th>
+                                                    <th>Quantity Remained</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                    <td>Mary Abel</td>
+                                                    <td>Resistor(s)</td>
+                                                    <td>1</td>
+                                                    <td>2</td>
+                                                    <td><b>INCOMPLETE<b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Rose Mkoba</td>
+                                                    <td>Diode</td>
+                                                    <td>4</td>
+                                                    <td>0</td>
+                                                    <td>COMPLETE</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+										</table>	
+								    </div>
                                 </div>
                             </div>
 
@@ -100,17 +135,21 @@ if(!isset($_SESSION['id'])){
         <script type="text/javascript" src="../js/plugins/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../js/plugins/jquery/jquery-ui.min.js"></script>
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap.min.js"></script>        
-        <!-- END PLUGINS -->
+        <!-- END PLUGINS -->                
 
         <!-- THIS PAGE PLUGINS -->
-
-        <!-- END PAGE PLUGINS -->         
+        <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+        <script type="text/javascript" src="../js/plugins/datatables/jquery.dataTables.min.js"></script>    
+        <!-- END PAGE PLUGINS -->
 
         <!-- START TEMPLATE -->
+        
         <script type="text/javascript" src="../js/plugins.js"></script>        
         <script type="text/javascript" src="../js/actions.js"></script>        
         <!-- END TEMPLATE -->
-    <!-- END SCRIPTS -->
+    <!-- END SCRIPTS --> 
     
     <!-- COUNTERS // NOT INCLUDED IN TEMPLATE -->
         <!-- GOOGLE -->

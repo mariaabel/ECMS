@@ -1,19 +1,34 @@
 <?php
-/*session_start();
-require_once '../includes/dBconnect.php';
-if(!isset($_SESSION['id'])){
- header('location: ../index.php');
- exit;
-}*/
-?> 
+ require_once ('../includes/dBconnect.php');
+$errors=1;
+ //Targeting Folder
+ $target="files/";
+  
+if(isset($_POST['submit'])){
+ $target=$target.basename($_FILES['lab_exercise']['name']);
+ //Getting Selected PDF Type
+ $type=pathinfo($target,PATHINFO_EXTENSION);
+ //Allow Certain File Format To Upload
+ if($type!='pdf' && $type!='doc' && $type!='docx' && $type!='epub' ){
+  echo "Only PDF,DOC,DOCX,Epub files format are allowed to Upload";
+  $errors=0;
+ }
+   //Moving The PDF or Doc file to Desired Directory
+  $upload_success=move_uploaded_file($_FILES['lab_exercise']['tmp_name'],$target);
+}
+  if($upload_success==TRUE){
+   //Getting Selected PDF Information
+    
+   $name=$_FILES['lab_exercise']['name'];
+  }
+   $result=mysqli_query($connection,"INSERT INTO lab_exercise (name,users_id)VALUES('".$name."')");
+?>
 <!DOCTYPE html>
 <html lang="en">
-    
-<!-- Mirrored from aqvatarius.com/themes/atlant/html/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 Jul 2015 06:16:06 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>        
         <!-- META SECTION -->
-        <title>ECMS | Dashboard</title>            
+        <title>ECMS |upload_lab_exercise</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,7 +47,7 @@ if(!isset($_SESSION['id'])){
             <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
-                <?php require_once 'incs/sider.php';?>
+                <?php require_once 'incs/sider.php'; ?>
                 <!-- END X-NAVIGATION -->
             </div>
             <!-- END PAGE SIDEBAR -->
@@ -52,13 +67,14 @@ if(!isset($_SESSION['id'])){
                 
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>                    
-                    <li class="active">Dashboard</li>
+                    <li><a href="index.html">Home</a></li> 
+              					
+                    <li class="active">upload_lab_exercise</li>
                 </ul>
                 <!-- END BREADCRUMB -->                
                 
                 <div class="page-title">                    
-                    <h2><span class="fa fa-home"></span> Home</h2>
+                    <h2><span class="fa fa-file-text"></span> Lab Exercise</h2>
                 </div>                   
                 
                 <!-- PAGE CONTENT WRAPPER -->
@@ -68,11 +84,17 @@ if(!isset($_SESSION['id'])){
                         <div class="col-md-12">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Dashboard</h3>
-                                </div>
-                                <div class="panel-body">
-                                    Panel body
+                    <div class="panel-body">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                    <div class="form-group">
+                    <input type="file" name="lab_exercise"  />
+                    </div>
+                    <div class="form-group">
+                    <input type="submit" class="btn btn-success "name="submit" value="Upload"/>
+
+                    </div>
+                            </form>
+
                                 </div>
                             </div>
 
@@ -94,65 +116,22 @@ if(!isset($_SESSION['id'])){
         <audio id="audio-alert" src="../audio/alert.mp3" preload="auto"></audio>
         <audio id="audio-fail" src="../audio/fail.mp3" preload="auto"></audio>
         <!-- END PRELOADS -->                 
-        
-    <!-- START SCRIPTS -->
+<!-- START SCRIPTS -->
         <!-- START PLUGINS -->
         <script type="text/javascript" src="../js/plugins/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../js/plugins/jquery/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap.min.js"></script>        
-        <!-- END PLUGINS -->
-
-        <!-- THIS PAGE PLUGINS -->
-
-        <!-- END PAGE PLUGINS -->         
-
+        <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap.min.js"></script>                
+        <!-- END PLUGINS -->       
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="../js/plugins.js"></script>        
         <script type="text/javascript" src="../js/actions.js"></script>        
         <!-- END TEMPLATE -->
-    <!-- END SCRIPTS -->
-    
-    <!-- COUNTERS // NOT INCLUDED IN TEMPLATE -->
-        <!-- GOOGLE -->
-        <script type="text/javascript">
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','../../../../www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-36783416-1', 'aqvatarius.com');
-          ga('send', 'pageview');
-        </script>        
-        <!-- END GOOGLE -->
-        
-        <!-- YANDEX -->
-        <script type="text/javascript">
-        (function (d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter25836617 = new Ya.Metrika({id:25836617,
-                            webvisor:true,
-                            accurateTrackBounce:true});
-                } catch(e) { }
-            });
-
-            var n = d.getElementsByTagName("script")[0],
-                s = d.createElement("script"),
-                f = function () { n.parentNode.insertBefore(s, n); };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else { f(); }
-        })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="http://mc.yandex.ru/watch/25836617" style="position:absolute; left:-9999px;" alt="" /></div></noscript>     
-        <!-- END YANDEX -->
-    <!-- END COUNTERS // NOT INCLUDED IN TEMPLATE -->
-
+    <!-- END SCRIPTS -->                   
     </body>
-
-<!-- Mirrored from aqvatarius.com/themes/atlant/html/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 Jul 2015 06:16:06 GMT -->
 </html>
+
+
+
+
+
+
